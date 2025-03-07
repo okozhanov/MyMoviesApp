@@ -100,19 +100,22 @@ const HomeScreen = (props: Props) => {
     }
   };
 
-  const RenderMovies = useCallback(({ data }: { data: MovieType[] }) => {
-    return (
-      <FlatList
-        data={data}
-        showsVerticalScrollIndicator={false}
-        keyExtractor={(item: MovieType) => item?.id + item?.title}
-        renderItem={({ item }: { item: MovieType }) => {
-          return <MovieItem movie={item} />;
-        }}
-        ListFooterComponent={<Footer />}
-      />
-    );
-  }, []);
+  const RenderMovies = useCallback(
+    ({ data }: { data: MovieType[] }) => {
+      return (
+        <FlatList
+          data={data}
+          showsVerticalScrollIndicator={false}
+          keyExtractor={(item: MovieType) => item?.id + item?.title}
+          renderItem={({ item }: { item: MovieType }) => {
+            return <MovieItem movie={item} />;
+          }}
+          ListFooterComponent={isFavouritesFiltered ? null : <Footer />}
+        />
+      );
+    },
+    [isFavouritesFiltered]
+  );
 
   const RenderEmptyState = useCallback(
     ({ type }: { type: "movies" | "favourites" }) => {
@@ -127,7 +130,7 @@ const HomeScreen = (props: Props) => {
 
   const RenderFavourites = useCallback(() => {
     return <RenderMovies data={favourites} />;
-  }, [favourites]);
+  }, [favourites, isFavouritesFiltered]);
 
   const RenderBody = useCallback(() => {
     if (isPresentSuggesting) {
