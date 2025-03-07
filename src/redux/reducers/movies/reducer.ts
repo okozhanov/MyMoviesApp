@@ -69,6 +69,7 @@ const moveisSlice = createSlice({
       action: PayloadAction<SearchTypes>
     ) => {
       state.searchType = action.payload;
+      state.isFavouritesFiltered = false;
     },
 
     /*

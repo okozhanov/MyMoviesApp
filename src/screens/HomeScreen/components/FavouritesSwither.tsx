@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Dimensions, StyleSheet, TouchableOpacity, View } from "react-native";
 import Typography from "../../../components/Typograhy";
 import Animated, {
@@ -39,6 +39,12 @@ const FavouritesSwither = () => {
   }));
 
   const mainColor = useThemeColor("main");
+
+  useEffect(() => {
+    if (!isFavouritesFiltered && translateX.value === BOX_WIDTH) {
+      togglePosition(false);
+    }
+  }, [isFavouritesFiltered]);
 
   return (
     <View style={styles.container}>
